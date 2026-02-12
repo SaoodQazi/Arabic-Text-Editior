@@ -1,0 +1,22 @@
+2024-12-06 11:01:02.666 [AWT-EventQueue-0] INFO  PL.EditorPO - Do you want to delete the selected file?
+2024-12-06 11:02:30.776 [AWT-EventQueue-0] INFO  PL.EditorPO - Do you want to delete the selected file?
+2024-12-06 11:02:31.754 [AWT-EventQueue-0] WARN  PL.EditorPO - Please select a file to delete.
+2024-12-08 17:59:02.807 [AWT-EventQueue-0] INFO  PL.EditorPO - File created successfully!
+2024-12-08 17:59:09.369 [AWT-EventQueue-0] INFO  PL.EditorPO - TF-IDF Score for 'bfg' is: -0.6931471805599453
+2024-12-08 17:59:11.660 [AWT-EventQueue-0] INFO  PL.EditorPO - TF-IDF Score for 'dfg' is: -0.6931471805599453
+2024-12-08 22:18:59.480 [AWT-EventQueue-0] INFO  pl.EditorPO - TF-IDF Score for 'bfg' is: -0.6931471805599453
+2024-12-09 02:14:29.019 [AWT-EventQueue-0] INFO  pl.EditorPO - File created successfully!
+2024-12-09 02:14:41.013 [Thread-3] INFO  pl.EditorPO - Group_9.pdf failed to upload!
+2024-12-09 02:15:31.398 [Thread-5] INFO  pl.EditorPO - n.txt uploaded successfully!
+2024-12-09 02:15:36.868 [AWT-EventQueue-0] INFO  pl.EditorPO - Do you want to delete the selected file?
+2024-12-09 02:15:38.434 [AWT-EventQueue-0] WARN  pl.EditorPO - Please select a file to delete.
+2024-12-09 02:15:41.539 [AWT-EventQueue-0] INFO  pl.EditorPO - Do you want to delete the selected file?
+2024-12-09 02:15:42.185 [AWT-EventQueue-0] INFO  pl.EditorPO - File deleted successfully!
+2024-12-09 02:15:45.834 [AWT-EventQueue-0] INFO  pl.EditorPO - TF-IDF Score for 'bfg' is: -0.2876820724517809
+2024-12-09 02:15:50.570 [AWT-EventQueue-0] INFO  pl.EditorPO - TF-IDF Score for 'kghhj' is: -0.40546510810816444
+2024-12-09 17:51:37.626 [main] ERROR pl.EditorPO - GSS-API authentication exception
+2024-12-10 21:23:27.012 [AWT-EventQueue-0] INFO  pl.EditorPO - File updated successfully!
+2024-12-10 21:23:53.981 [AWT-EventQueue-0] INFO  pl.EditorPO - File updated successfully!
+2024-12-10 21:25:27.599 [AWT-EventQueue-0] INFO  pl.EditorPO - Do you want to delete the selected file?
+2024-12-10 21:25:40.338 [AWT-EventQueue-0] INFO  pl.EditorPO - TF-IDF Score for 'surah falaq.txt' is: 0.009627044174443686
+2024-12-10 21:25:45.280 [AWT-EventQueue-0] INFO  pl.EditorPO - TF-IDF Score for 'quran-simple.txt' is: 0.014417461355646866
