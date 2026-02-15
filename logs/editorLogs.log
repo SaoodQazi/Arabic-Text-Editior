@@ -20,3 +20,8 @@
 2024-12-10 21:25:27.599 [AWT-EventQueue-0] INFO  pl.EditorPO - Do you want to delete the selected file?
 2024-12-10 21:25:40.338 [AWT-EventQueue-0] INFO  pl.EditorPO - TF-IDF Score for 'surah falaq.txt' is: 0.009627044174443686
 2024-12-10 21:25:45.280 [AWT-EventQueue-0] INFO  pl.EditorPO - TF-IDF Score for 'quran-simple.txt' is: 0.014417461355646866
+2026-02-15 13:16:07.319 [main] ERROR dal.DatabaseConnection - Database connection failed: GSS-API authentication exception
+2026-02-15 13:17:57.892 [main] ERROR dal.DatabaseConnection - Database connection failed: GSS-API authentication exception
+2026-02-15 13:18:05.606 [main] ERROR dal.DatabaseConnection - Database connection failed: GSS-API authentication exception
+2026-02-15 13:19:32.386 [main] ERROR dal.DatabaseConnection - Database connection failed: GSS-API authentication exception
+2026-02-15 13:19:47.649 [main] ERROR dal.DatabaseConnection - Database connection failed: GSS-API authentication exception
