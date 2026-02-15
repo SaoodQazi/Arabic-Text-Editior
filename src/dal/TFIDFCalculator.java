@@ -18,22 +18,34 @@ public class TFIDFCalculator {
 	}
 
 	public double calculateDocumentTfIdf(String document) {
-		String preprocessedDoc = PreProcessText.preprocessText(document);
-		String[] words = preprocessedDoc.split("\\s+");
-		List<String> wordList = Arrays.asList(words);
+    // Phase B Negative Path: Handle null or empty inputs gracefully
+    if (document == null || document.trim().isEmpty()) {
+        return 0.0; 
+    }
+    
+    String preprocessedDoc = PreProcessText.preprocessText(document);
+    String[] words = preprocessedDoc.trim().split("\\s+");
+    
+    // Safety check for strings that become empty after preprocessing (e.g., "!!!")
+    if (words.length == 0 || (words.length == 1 && words[0].isEmpty())) {
+        return 0.0;
+    }
 
-		Map<String, Double> tf = calculateTermFrequency(wordList);
-		Map<String, Double> idf = calculateInverseDocumentFrequency();
+    List<String> wordList = Arrays.asList(words);
+    Map<String, Double> tf = calculateTermFrequency(wordList);
+    Map<String, Double> idf = calculateInverseDocumentFrequency();
 
-		double totalTfIdf = 0.0;
-		for (String word : tf.keySet()) {
-			double tfValue = tf.get(word);
-			double idfValue = idf.getOrDefault(word, Math.log(corpus.size() + 1));
-			totalTfIdf += tfValue * idfValue;
-		}
+    double totalTfIdf = 0.0;
+    for (String word : tf.keySet()) {
+        double tfValue = tf.get(word);
+        // Ensure idfValue is never undefined
+        double idfValue = idf.getOrDefault(word, Math.log(corpus.size() + 1.0));
+        totalTfIdf += tfValue * idfValue;
+    }
 
-		return totalTfIdf / wordList.size();
-	}
+    // Requirement: Ensure no division by zero occurs
+    return totalTfIdf / (double) wordList.size();
+}
 
 	private Map<String, Double> calculateTermFrequency(List<String> wordList) {
 		Map<String, Double> tf = new HashMap<>();
