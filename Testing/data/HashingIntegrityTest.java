@@ -1,14 +1,11 @@
 package data;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
-
+import static org.junit.Assert.*;
+import static org.junit.Assume.assumeNotNull; // JUnit 4 Assumption
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
-import org.junit.jupiter.api.Test;
-
+import org.junit.Test;
 import dal.DatabaseConnection;
 import dal.EditorDBDAO;
 import dal.HashCalculator;
@@ -16,15 +13,13 @@ import dal.HashCalculator;
 public class HashingIntegrityTest {
 
     @Test
-    void editingFile_changesSessionHash_butKeepsOriginalHashInDB() throws Exception {
+    public void editingFile_changesSessionHash_butKeepsOriginalHashInDB() throws Exception {
         // 1) Get DB connection from the singleton
         Connection conn = DatabaseConnection.getInstance().getConnection();
 
-        // If DB is not available, skip the test instead of failing the whole suite
-        assumeTrue(conn != null,
-                "Database connection is not available; skipping hashing integrity test");
+        // Skip test if DB is down to avoid false failures
+        assumeNotNull(conn);
 
-        // Make sure our direct queries auto-commit
         conn.setAutoCommit(true);
 
         String fileName        = "hash_test_" + System.currentTimeMillis();
@@ -33,14 +28,13 @@ public class HashingIntegrityTest {
 
         EditorDBDAO dao = new EditorDBDAO();
 
-        // 2) Create file through DAO (stores original hash in files.fileHash)
+        // 2) Create file through DAO
         boolean created = dao.createFileInDB(fileName, originalContent);
-        assertTrue(created, "createFileInDB should return true for valid input");
+        assertTrue("createFileInDB should return true for valid input", created);
 
-        // DAO methods may change auto-commit; reset it for our own SQL
         conn.setAutoCommit(true);
 
-        // 3) Read fileId and original hash from DB
+        // 3) Read original hash from DB
         int fileId;
         String dbOriginalHash;
 
@@ -48,46 +42,40 @@ public class HashingIntegrityTest {
                 "SELECT fileId, fileHash FROM files WHERE fileName = ? ORDER BY dateCreated DESC LIMIT 1")) {
             stmt.setString(1, fileName);
             try (ResultSet rs = stmt.executeQuery()) {
-                assertTrue(rs.next(), "Inserted file must be present in DB");
+                assertTrue("Inserted file must be present in DB", rs.next());
                 fileId = rs.getInt("fileId");
                 dbOriginalHash = rs.getString("fileHash");
             }
         }
 
-        // 4) Sanity check: DB hash must equal MD5 of original content
+        // 4) Verification: DB hash must match calculation
         String expectedOriginalHash = HashCalculator.calculateHash(originalContent);
-        assertEquals(expectedOriginalHash, dbOriginalHash,
-                "DB fileHash must equal MD5 of original content");
+        assertEquals("DB fileHash must equal MD5 of original content", expectedOriginalHash, dbOriginalHash);
 
-        // 5) Compute session hash for UPDATED content -> must differ from original hash
+        // 5) Simulate an edit - session hash must differ
         String sessionHashAfterEdit = HashCalculator.calculateHash(updatedContent);
-        assertNotEquals(dbOriginalHash, sessionHashAfterEdit,
-                "Session hash (MD5 of updated content) should differ from original DB hash");
+        assertNotEquals("Session hash should differ from original DB hash", dbOriginalHash, sessionHashAfterEdit);
 
-        // 6) Update file content via DAO (simulates editing in the app)
+        // 6) Update via DAO
         boolean updated = dao.updateFileInDB(fileId, fileName, 1, updatedContent);
-        assertTrue(updated, "updateFileInDB should return true for valid update");
+        assertTrue("updateFileInDB should return true", updated);
 
-        // Reset auto-commit again for our direct queries
         conn.setAutoCommit(true);
 
-        // 7) Re-read fileHash from DB -> should STILL be the original hash
+        // 7) Verify original hash in DB remained unchanged
         String dbHashAfterEdit;
-        try (PreparedStatement stmt = conn.prepareStatement(
-                "SELECT fileHash FROM files WHERE fileId = ?")) {
+        try (PreparedStatement stmt = conn.prepareStatement("SELECT fileHash FROM files WHERE fileId = ?")) {
             stmt.setInt(1, fileId);
             try (ResultSet rs = stmt.executeQuery()) {
-                assertTrue(rs.next(), "File row must still exist after update");
+                assertTrue(rs.next());
                 dbHashAfterEdit = rs.getString("fileHash");
             }
         }
 
-        assertEquals(dbOriginalHash, dbHashAfterEdit,
-                "Original import hash in DB must NOT change after editing content");
+        assertEquals("Original import hash in DB must NOT change after editing", dbOriginalHash, dbHashAfterEdit);
 
-        // 8) Clean up: delete the test file row (cascades to pages & analytics)
-        try (PreparedStatement del = conn.prepareStatement(
-                "DELETE FROM files WHERE fileId = ?")) {
+        // 8) Cleanup
+        try (PreparedStatement del = conn.prepareStatement("DELETE FROM files WHERE fileId = ?")) {
             del.setInt(1, fileId);
             del.executeUpdate();
         }

@@ -25,3 +25,17 @@
 2026-02-15 13:18:05.606 [main] ERROR dal.DatabaseConnection - Database connection failed: GSS-API authentication exception
 2026-02-15 13:19:32.386 [main] ERROR dal.DatabaseConnection - Database connection failed: GSS-API authentication exception
 2026-02-15 13:19:47.649 [main] ERROR dal.DatabaseConnection - Database connection failed: GSS-API authentication exception
+2026-02-15 17:13:09.194 [main] ERROR pl.EditorPO - (conn=10) Table 'realeditor.files' doesn't exist
+2026-02-15 17:14:45.325 [main] ERROR pl.EditorPO - (conn=11) Table 'realeditor.pages' doesn't exist
+2026-02-15 17:15:22.903 [main] ERROR pl.EditorPO - (conn=12) Table 'realeditor.transliteratedpages' doesn't exist
+2026-02-15 17:16:21.768 [main] ERROR pl.EditorPO - (conn=13) Unknown column 'pageId' in 'INSERT INTO'
+2026-02-15 17:16:59.474 [main] ERROR pl.EditorPO - (conn=14) Unknown column 'pageId' in 'INSERT INTO'
+2026-02-15 17:17:06.334 [main] ERROR pl.EditorPO - (conn=15) Unknown column 'pageId' in 'INSERT INTO'
+2026-02-15 17:18:14.113 [main] ERROR pl.EditorPO - (conn=16) Unknown column 'pageId' in 'INSERT INTO'
+2026-02-15 17:18:23.877 [main] ERROR pl.EditorPO - (conn=17) Unknown column 'pageId' in 'INSERT INTO'
+2026-02-15 17:18:54.953 [main] ERROR pl.EditorPO - (conn=18) Unknown column 'pageId' in 'INSERT INTO'
+2026-02-15 17:19:30.454 [main] ERROR pl.EditorPO - (conn=19) Unknown column 'pageId' in 'INSERT INTO'
+2026-02-15 17:20:12.042 [main] ERROR pl.EditorPO - (conn=20) Unknown column 'pageId' in 'INSERT INTO'
+2026-02-15 17:21:22.827 [main] ERROR pl.EditorPO - (conn=21) Field 'pageId' doesn't have a default value
+2026-02-15 17:23:22.259 [main] ERROR pl.EditorPO - (conn=22) Unknown column 'pageId' in 'INSERT INTO'
+2026-02-15 17:24:04.148 [main] ERROR pl.EditorPO - (conn=23) Field 'pageId' doesn't have a default value

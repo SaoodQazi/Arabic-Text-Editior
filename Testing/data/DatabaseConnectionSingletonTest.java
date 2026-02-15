@@ -1,34 +1,29 @@
 package data;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.junit.Assert.*; // JUnit 4 Assertion
 import java.sql.Connection;
-import java.sql.SQLException;
-
-import org.junit.jupiter.api.Test;
-
+import org.junit.Test;           // JUnit 4 Annotation
 import dal.DatabaseConnection;
 
 public class DatabaseConnectionSingletonTest {
 
     @Test
-    void getInstance_shouldReturnSameObjectEveryTime() {
+    public void getInstance_shouldReturnSameObjectEveryTime() {
         DatabaseConnection first = DatabaseConnection.getInstance();
         DatabaseConnection second = DatabaseConnection.getInstance();
 
-        assertSame(first, second,
-                "getInstance() should always return the same DatabaseConnection object (Singleton)");
+        // Requirement: Prove the class is a Singleton
+        assertSame("getInstance() should always return the same DatabaseConnection object (Singleton)", first, second);
     }
 
     @Test
-    void getConnection_shouldReturnSameInstanceEachTime() {
+    public void getConnection_shouldReturnSameInstanceEachTime() {
         DatabaseConnection instance = DatabaseConnection.getInstance();
 
         Connection c1 = instance.getConnection();
         Connection c2 = instance.getConnection();
 
-        // Even if the connection is null or closed, the singleton should
-        // always return the SAME reference from getConnection().
-        assertSame(c1, c2, "getConnection() should return the same Connection instance each time");
+        // Requirement: Ensure the connection reference remains consistent
+        assertSame("getConnection() should return the same Connection instance each time", c1, c2);
     }
 }
